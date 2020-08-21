@@ -9,8 +9,14 @@ import { Layout } from './Layout';
 import { NavigationBar } from './NavigationBar';
 import { Jumbotron } from './Jumbotron';
 
+
+
+
+
 class App extends Component {
   render() {
+  
+  
     return (
       <React.Fragment>
         <Router>
@@ -31,4 +37,5 @@ class App extends Component {
 }
 
 export default App;
+
 
