@@ -7,5 +7,3 @@ export const About = () => (
     <img src="/Images/profilepic.PNG" alt=""/>
   </div>
 )
-
-
