@@ -7,6 +7,7 @@ import { Input, FormControl, InputLabel, FormHelperText, Button } from '@materia
 
 export const Home = () => {
   const [address, setAddress]= useState("");
+  const [weather, setWeather]= useState("");
   const changeAddress = (e) => {
     setAddress(e.target.value)
   }
@@ -15,9 +16,27 @@ export const Home = () => {
     console.log(geoKey, "This is the geocode key.");
     const encodedAddress = encodeURIComponent(address);
     
-    const response = await fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodedAddress + ".json?access_token="+ geoKey).then(res => res.json()).then(data => console.log(data));
-    // console.log(response, "This is the response.");
+    const response = await fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodedAddress + ".json?access_token="+ geoKey).then(res => res.json()).then(data => data);
+     console.log(response, "This is the response.");
+     const latitude = response.features[0].center[1];
+     const longitude= response.features[0].center[0];
+     const location= response.features[0].place_name;
+     console.log(latitude,longitude,location);
+     
+
+     const weatherResponse = await fetch("https://api.darksky.net/forecast/" + process.env.REACT_APP_DARK_SKY + "/" + latitude +','+ longitude).then(res => res.json()).then(data => data);
+     console.log(weatherResponse);
+     const rainProbability = weatherResponse.currently.precipProbability;
+     const degreesCurrent = weatherResponse.currently.temperature;
+     const dailySummary = weatherResponse.daily.data[0].summary;
+     const todaysWeather = dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is: '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is:' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
+     setWeather(todaysWeather);
   }
+ 
+  
+  // lattitude: body.features[0].center[1],
+// longitude: body.features[0].center[0],
+// location: body.features[0].place_name
   return(<div>
    
     <FormControl onSubmit={Get}>
@@ -27,7 +46,10 @@ export const Home = () => {
  
 </FormControl>
 <Button onClick={Get} style={{margin: "2rem", background: "#007dc1"}}>Search</Button>
+{weather !== '' && <p>{weather}</p>}
     </div>)
+
+
 }
 /*function Weather() {
     return(
