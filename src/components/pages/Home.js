@@ -24,7 +24,7 @@ export const Home = () => {
      console.log(latitude,longitude,location);
      
 
-     const weatherResponse = await fetch("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" + process.env.REACT_APP_DARK_SKY + "/" + latitude +','+ longitude,{mode: "no-cors"}).then(res => res.json()).then(data => data);
+     const weatherResponse = await fetch("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" + process.env.REACT_APP_DARK_SKY + "/" + latitude +','+ longitude).then(res => res.json()).then(data => data);
      console.log(weatherResponse);
      const rainProbability = weatherResponse.currently.precipProbability;
      const degreesCurrent = weatherResponse.currently.temperature;
