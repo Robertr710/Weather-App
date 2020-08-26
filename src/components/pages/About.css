@@ -1,0 +1,9 @@
+.About{
+    width:30%;
+    border: 1px solid #eee;
+}
+@media only screen and (max-device-width: 400px) {
+    .About {
+        width:70%
+    }
+}
