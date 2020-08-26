@@ -8,6 +8,7 @@ import { Input, FormControl, InputLabel, FormHelperText, Button } from '@materia
 export const Home = () => {
   const [address, setAddress]= useState("");
   const [weather, setWeather]= useState("");
+  const [imageIcon, setImageIcon]= useState("");
   const changeAddress = (e) => {
     setAddress(e.target.value)
   }
@@ -27,10 +28,14 @@ export const Home = () => {
      const weatherResponse = await fetch("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" + process.env.REACT_APP_DARK_SKY + "/" + latitude +','+ longitude).then(res => res.json()).then(data => data);
      console.log(weatherResponse);
      const rainProbability = weatherResponse.currently.precipProbability;
+     const icon = weatherResponse.currently.icon;
+     setImageIcon(icon);
      const degreesCurrent = weatherResponse.currently.temperature;
      const dailySummary = weatherResponse.daily.data[0].summary;
-     const todaysWeather = dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is: '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is:' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
+     const todaysWeather = dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is: '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is: ' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
      setWeather(todaysWeather);
+
+     
   }
  
   
@@ -46,8 +51,13 @@ export const Home = () => {
  
 </FormControl>
 <Button onClick={Get} style={{margin: "2rem", background: "#007dc1"}}>Search</Button>
-{weather !== '' && <p>{weather}</p>}
-    </div>)
+{weather !== '' && <p> 
+  <div>
+  <img
+            alt=""
+            src={`${process.env.PUBLIC_URL}/Images/${imageIcon}.png`}
+          ></img> </div>{weather} </p>}
+    </div>);
 
 
 }
