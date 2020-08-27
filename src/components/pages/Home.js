@@ -5,6 +5,8 @@ import { Input, FormControl, InputLabel, FormHelperText, Button } from '@materia
 
 
 
+
+
 export const Home = () => {
   const [address, setAddress]= useState("");
   const [weather, setWeather]= useState("");
@@ -19,6 +21,8 @@ export const Home = () => {
     
     const response = await fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodedAddress + ".json?access_token="+ geoKey).then(res => res.json()).then(data => data);
      console.log(response, "This is the response.");
+
+     
      const latitude = response.features[0].center[1];
      const longitude= response.features[0].center[0];
      const location= response.features[0].place_name;
@@ -32,8 +36,10 @@ export const Home = () => {
      setImageIcon(icon);
      const degreesCurrent = weatherResponse.currently.temperature;
      const dailySummary = weatherResponse.daily.data[0].summary;
-     const todaysWeather = dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is: '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is: ' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
+     const todaysWeather = 'Now viewing weather for ' + location + '. ' + dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is: '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is: ' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
      setWeather(todaysWeather);
+
+     
 
      
   }
@@ -47,6 +53,7 @@ export const Home = () => {
     <FormControl onSubmit={Get}>
   <InputLabel htmlFor="my-input">Enter a location</InputLabel>
   <Input onChange={changeAddress} id="my-input" aria-describedby="my-helper-text" />
+
   <FormHelperText id="my-helper-text">Search by city name.</FormHelperText>
  
 </FormControl>
