@@ -36,7 +36,7 @@ export const Home = () => {
      setImageIcon(icon);
      const degreesCurrent = weatherResponse.currently.temperature;
      const dailySummary = weatherResponse.daily.data[0].summary;
-     const todaysWeather = 'Now viewing weather for ' + location + '. ' + dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is: '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is: ' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
+     const todaysWeather = 'Now viewing weather for ' + location + '. ' + dailySummary + ' It is currently ' + degreesCurrent +' degrees out. The temperature high is '+ weatherResponse.daily.data[0].temperatureHigh + '. The temperature low for today is ' + weatherResponse.daily.data[0].temperatureLow+ '. There is a ' + rainProbability + '% chance of rain';
      setWeather(todaysWeather);
 
      
